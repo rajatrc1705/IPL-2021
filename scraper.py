@@ -166,4 +166,4 @@ df = pd.DataFrame(
         name, columns=['Name', 'Team', 'Batting_Hand', 'Bowling_Type', 'Role', 'Matches','Innings', 'Not Outs', 'Runs', 'Highest', 'Average', 'BF', 'SR', '100', '200', '50', '4', '6', 'Matches', 'Innings', 'Balls', 'Runs', 'Wickets', 'BBI', 'BBM', 'Economy', 'Average', 'SR', '5W', '10W']
     )
 
-df.to_csv('player_data.csv')
+df.to_csv('player_data.csv', index=False)
