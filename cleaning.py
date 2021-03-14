@@ -60,3 +60,5 @@ data[['Average', 'SR', 'Economy', 'B_Average',
 
 data2 = data.sort_values(by=['Average'], ascending=False)
 data2.iloc[:, :10].head()
+
+data2.to_csv('cleaned_data.csv', index=False)
