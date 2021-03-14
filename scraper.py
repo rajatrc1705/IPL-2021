@@ -1,12 +1,10 @@
 import pandas as pd
-import numpy as np
-import time
 from selenium import webdriver
-
+# import time
 driver = webdriver.Chrome()
 link = 'https://www.cricbuzz.com/cricket-team/league'
 driver.get(link)
-# time.sleep(4)
+
 element = driver.find_element_by_xpath("//div[@class = 'cb-col cb-col-100']")
 string = element.text
 
@@ -17,10 +15,6 @@ batsmen = list()
 all_rounder = list()
 wicket_keeper = list()
 bowler = list()
-num_of_batsmen = len(batsmen)
-num_of_bowlers = len(bowler)
-num_of_all_rounders = len(all_rounder)
-num_of_wicket_keeper = len(wicket_keeper)
 name = list()
 role = list()
 team = list()
@@ -96,6 +90,9 @@ for team_name in teams_string[:8]:
                 if len(stats) != 0:
                     batting_stats = stats[0].split(' ')[1:]
                     bowling_stats = stats[1].split(' ')[1:]
+                else:
+                    batting_stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    bowling_stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]                    
                 
         if i == 'BATSMEN':
             group = 1
@@ -127,6 +124,11 @@ for team_name in teams_string[:8]:
             
     # go back to main page
     driver.get(link)
+
+num_of_batsmen = len(batsmen)
+num_of_bowlers = len(bowler)
+num_of_all_rounders = len(all_rounder)
+num_of_wicket_keeper = len(wicket_keeper)
 
 # structuring the data to put it in a data frame
 for player in range(num_of_batsmen):
@@ -163,7 +165,7 @@ for player in range(num_of_all_rounders):
         name.append(temporary)
 
 df = pd.DataFrame(
-        name, columns=['Name', 'Team', 'Batting_Hand', 'Bowling_Type', 'Role', 'Matches','Innings', 'Not Outs', 'Runs', 'Highest', 'Average', 'BF', 'SR', '100', '200', '50', '4', '6', 'Matches', 'Innings', 'Balls', 'Runs', 'Wickets', 'BBI', 'BBM', 'Economy', 'Average', 'SR', '5W', '10W']
+        name, columns=['Name', 'Team', 'Batting_Hand', 'Bowling_Type', 'Role', 'Matches','Innings', 'Not Outs', 'Runs', 'Highest', 'Average', 'BF', 'SR', '100', '200', '50', '4', '6', 'Matches', 'Innings_Bowl', 'Balls', 'Runs_Given', 'Wickets', 'BBI', 'BBM', 'Economy', 'B_Average', 'BSR', '5W', '10W']
     )
 
 df.to_csv('player_data.csv', index=False)
